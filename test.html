@@ -22,8 +22,44 @@
         </div>
     </div>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+
+//レスポンシブ
+$(window).on("load resize", function() {
+    var w_width = $(this).width();
+    var img = w_width * 0.4;
+    var css_slider_width = img * 1.5;
+    var slide_width = css_slider_width * 1.4;
+    var btn_height = img + 20;
+    var btn_width = (slide_width - css_slider_width - 20) / 2;
+    var slide_wrapper_width = img * 6;
+    var margin = img * 2 - ((css_slider_width - img) / 2);
+
+    $(".slide").css({
+        "width":slide_width + "px",
+    });
+
+    $("button").css({
+        "width":btn_width + "px",
+        "height":btn_height + "px"
+    });
+
+    $("img").css({
+        "width":img + "px",
+        "height":img + "px"
+    });
+
+    $(".cp_cssslider").css({
+        "width":css_slider_width + "px",
+        "height":img + "px"
+    });
+
+    $("#cp_slidewrapper").css({
+        "margin-left":"-" + margin + "px",
+        "width":slide_wrapper_width + "px"
+    });
+});
 
 $(function(){
 
@@ -37,41 +73,7 @@ $(function(){
     addCloneImg(img_count);
     startSlide();
 
-    //レスポンシブ
-    $(window).on("load resize", function() {
-        var w_width = $(this).width();
-        var img = w_width * 0.4;
-        var css_slider_width = img * 1.5;
-        var slide_width = css_slider_width * 1.4;
-        var btn_height = img + 20;
-        var btn_width = (slide_width - css_slider_width - 20) / 2;
-        var slide_wrapper_width = img * 6;
-        var margin = img * 2 - ((css_slider_width - img) / 2);
 
-        $(".slide").css({
-            "width":slide_width + "px",
-        });
-
-        $("button").css({
-            "width":btn_width + "px",
-            "height":btn_height + "px"
-        });
-
-        $("img").css({
-            "width":img + "px",
-            "height":img + "px"
-        });
-
-        $(".cp_cssslider").css({
-            "width":css_slider_width + "px",
-            "height":img + "px"
-        });
-
-        $("#cp_slidewrapper").css({
-            "margin-left":"-" + margin + "px",
-            "width":slide_wrapper_width + "px"
-        });
-    });
 
     $("button").on('click', function() {
         data_item = $(this).data("item");
