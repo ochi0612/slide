@@ -7,18 +7,18 @@
 
 <body>
     <!-- C:/Users/0025230/Desktop/anything/slide/test.html -->
-    <div class="slide_wrapper">
-        <div class="imgs">
-            <div class="imgs_wrapper">
+    <div class="slide_show">
+        <div class="slide_show_imgs">
+            <div class="slide_show_imgs_list">
                 <img src="https://careers.gizumo-inc.jp/wp-content/uploads/sites/2/2019/02/af69a27abc85ea45435f04cc7c000cdd.jpg">
                 <img src="https://careers.gizumo-inc.jp/wp-content/uploads/sites/2/2019/02/66c46d52639c6ace1905a30968467496.jpg">
                 <img src="https://careers.gizumo-inc.jp/wp-content/uploads/sites/2/2019/02/55d1f98511442a29819c76f89eeadb05.jpg">
                 <img src="https://careers.gizumo-inc.jp/wp-content/uploads/sites/2/2019/02/29bab4e99a865c1fb42e7e16e26eca2d.jpg">
             </div>
         </div>
-        <div class="btns">
-            <button class="btns_left" data-item="left">左</button>
-            <button class="btns_right" data-item="right">右</button>
+        <div class="slide_show_btns">
+            <button class="slide_show_btns_left" data-item="left">左</button>
+            <button class="slide_show_btns_right" data-item="right">右</button>
         </div>
     </div>
 </body>
@@ -29,46 +29,46 @@
 $(window).on("load resize", function() {
     var w_width = $(this).width();
     var img = w_width * 0.4;
-    var imgs_width = img * 1.5;
-    var slide_width = imgs_width * 1.4;
-    var btn_height = img + 20;
-    var btn_width = (slide_width - imgs_width - 20) / 2;
-    var imgs_wrapper_width = img * 6;
-    var imgs_wrapper_margin = img * 2 - ((imgs_width - img) / 2);
+    var slide_show_imgs_width = img * 1.5;
+    var slide_width = slide_show_imgs_width * 1.4;
+    var slide_show_btns_height = img + 20;
+    var slide_show_btns_width = (slide_width - slide_show_imgs_width - 20) / 2;
+    var slide_show_imgs_list_width = img * 6;
+    var slide_show_imgs_list_margin = img * 2 - ((slide_show_imgs_width - img) / 2);
 
-    $(".slide_wrapper").css({
+    $(".slide_show").css({
         "width":slide_width + "px",
     });
 
-    $(".btns > button").css({
-        "width":btn_width + "px",
-        "height":btn_height + "px"
+    $(".slide_show_btns > button").css({
+        "width":slide_show_btns_width + "px",
+        "height":slide_show_btns_height + "px"
     });
 
-    $(".imgs_wrapper > img").css({
+    $(".slide_show_imgs_list > img").css({
         "width":img + "px",
         "height":img + "px"
     });
 
-    $(".imgs").css({
-        "width":imgs_width + "px",
+    $(".slide_show_imgs").css({
+        "width":slide_show_imgs_width + "px",
         "height":img + "px"
     });
 
-    $(".imgs_wrapper").css({
-        "margin-left":"-" + imgs_wrapper_margin + "px",
-        "width":imgs_wrapper_width + "px"
+    $(".slide_show_imgs_list").css({
+        "margin-left":"-" + slide_show_imgs_list_margin + "px",
+        "width":slide_show_imgs_list_width + "px"
     });
 });
 
 $(function(){
 
-    var first_img = ".imgs_wrapper img:first";
-    var last_img = ".imgs_wrapper img:last";
+    var first_img = ".slide_show_imgs_list img:first";
+    var last_img = ".slide_show_imgs_list img:last";
     var slide_timer;
     var bool = true;
     var w_width = $(this).width();
-    var img_count = $(".imgs_wrapper").children("img").length;
+    var img_count = $(".slide_show_imgs_list").children("img").length;
 
     //自動でスライド切り替え
     function startSlide(time = 2000) {
@@ -87,10 +87,10 @@ $(function(){
     //画像の複製
     function addCloneImg(img_count) {
         if(img_count <= 0) {//画像がない場合
-            $(".imgs_wrapper").before("<p>画像がありません</p>");
+            $(".slide_show_imgs_list").before("<p>画像がありません</p>");
         } else if (img_count <= 6 ) {//画像が6枚以下の時
             img_count *= 2;
-            $(".imgs_wrapper").find("img").clone().appendTo(".imgs_wrapper");
+            $(".slide_show_imgs_list").find("img").clone().appendTo(".slide_show_imgs_list");
             addCloneImg(img_count);
         } else if (img_count >= 6) {//画像が6枚以上の時
             for (var i = 0; i < 2; i++) {
@@ -124,7 +124,7 @@ $(function(){
     addCloneImg(img_count);
     startSlide();
 
-    $(".btns > button").on('click', function() {
+    $(".slide_show_btns > button").on('click', function() {
         data_item = $(this).data("item");
         stopTimer();
         slide(data_item);
@@ -134,29 +134,29 @@ $(function(){
 </script>
 <style>
 
-.slide_wrapper {
+.slide_show {
     margin: 2em auto 0;
     position: relative;
 }
 
-.imgs {
+.slide_show_imgs {
 	overflow: hidden;
     margin: 0 auto;
 	border: 10px solid #ffffff;
 	box-shadow:0px 0px 5px 0px rgba(0,0,0,0.5);
 }
 
-.imgs_wrapper {
+.slide_show_imgs_list {
     font-size: 0;
 }
 
-.btns_left {
+.slide_show_btns_left {
     position: absolute;
     top: 0px;
     left: 0px;
 }
 
-.btns_right {
+.slide_show_btns_right {
     position: absolute;
     top: 0px;
     right: 0px;
