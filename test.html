@@ -7,18 +7,18 @@
 
 <body>
     <!-- C:/Users/0025230/Desktop/anything/slide/test.html -->
-    <div class="slide">
-        <div class="cp_cssslider">
-            <div id="cp_slidewrapper">
+    <div class="slide_wrapper">
+        <div class="imgs">
+            <div class="imgs_wrapper">
                 <img src="https://careers.gizumo-inc.jp/wp-content/uploads/sites/2/2019/02/af69a27abc85ea45435f04cc7c000cdd.jpg">
                 <img src="https://careers.gizumo-inc.jp/wp-content/uploads/sites/2/2019/02/66c46d52639c6ace1905a30968467496.jpg">
                 <img src="https://careers.gizumo-inc.jp/wp-content/uploads/sites/2/2019/02/55d1f98511442a29819c76f89eeadb05.jpg">
                 <img src="https://careers.gizumo-inc.jp/wp-content/uploads/sites/2/2019/02/29bab4e99a865c1fb42e7e16e26eca2d.jpg">
             </div>
         </div>
-        <div class="btn">
-            <button class="left-btn" data-item="left">左</button>
-            <button class="right-btn" data-item="right">右</button>
+        <div class="btns">
+            <button class="btns_left" data-item="left">左</button>
+            <button class="btns_right" data-item="right">右</button>
         </div>
     </div>
 </body>
@@ -29,53 +29,53 @@
 $(window).on("load resize", function() {
     var w_width = $(this).width();
     var img = w_width * 0.4;
-    var css_slider_width = img * 1.5;
-    var slide_width = css_slider_width * 1.4;
+    var imgs_width = img * 1.5;
+    var slide_width = imgs_width * 1.4;
     var btn_height = img + 20;
-    var btn_width = (slide_width - css_slider_width - 20) / 2;
-    var slide_wrapper_width = img * 6;
-    var margin = img * 2 - ((css_slider_width - img) / 2);
+    var btn_width = (slide_width - imgs_width - 20) / 2;
+    var imgs_wrapper_width = img * 6;
+    var imgs_wrapper_margin = img * 2 - ((imgs_width - img) / 2);
 
-    $(".slide").css({
+    $(".slide_wrapper").css({
         "width":slide_width + "px",
     });
 
-    $("button").css({
+    $(".btns > button").css({
         "width":btn_width + "px",
         "height":btn_height + "px"
     });
 
-    $("img").css({
+    $(".imgs_wrapper > img").css({
         "width":img + "px",
         "height":img + "px"
     });
 
-    $(".cp_cssslider").css({
-        "width":css_slider_width + "px",
+    $(".imgs").css({
+        "width":imgs_width + "px",
         "height":img + "px"
     });
 
-    $("#cp_slidewrapper").css({
-        "margin-left":"-" + margin + "px",
-        "width":slide_wrapper_width + "px"
+    $(".imgs_wrapper").css({
+        "margin-left":"-" + imgs_wrapper_margin + "px",
+        "width":imgs_wrapper_width + "px"
     });
 });
 
 $(function(){
 
-    var first_img = "#cp_slidewrapper img:first";
-    var last_img = "#cp_slidewrapper img:last";
+    var first_img = ".imgs_wrapper img:first";
+    var last_img = ".imgs_wrapper img:last";
     var slide_timer;
     var bool = true;
     var w_width = $(this).width();
-    var img_count = $("#cp_slidewrapper").children("img").length;
+    var img_count = $(".imgs_wrapper").children("img").length;
 
     addCloneImg(img_count);
     startSlide();
 
 
 
-    $("button").on('click', function() {
+    $(".btns > button").on('click', function() {
         data_item = $(this).data("item");
         stopTimer();
         slide(data_item);
@@ -98,10 +98,10 @@ $(function(){
     //画像の複製
     function addCloneImg(img_count) {
         if(img_count <= 0) {//画像がない場合
-            $("#cp_slidewrapper").before("<p>画像がありません</p>");
+            $(".imgs_wrapper").before("<p>画像がありません</p>");
         } else if (img_count <= 6 ) {//画像が6枚以下の時
             img_count *= 2;
-            $("#cp_slidewrapper").find("img").clone().appendTo("#cp_slidewrapper");
+            $(".imgs_wrapper").find("img").clone().appendTo(".imgs_wrapper");
             addCloneImg(img_count);
         } else if (img_count >= 6) {//画像が6枚以上の時
             for (var i = 0; i < 2; i++) {
@@ -136,29 +136,29 @@ $(function(){
 </script>
 <style>
 
-.slide {
+.slide_wrapper {
     margin: 2em auto 0;
     position: relative;
 }
 
-.cp_cssslider {
+.imgs {
 	overflow: hidden;
     margin: 0 auto;
 	border: 10px solid #ffffff;
 	box-shadow:0px 0px 5px 0px rgba(0,0,0,0.5);
 }
 
-#cp_slidewrapper {
+.imgs_wrapper {
     font-size: 0;
 }
 
-.left-btn {
+.btns_left {
     position: absolute;
     top: 0px;
     left: 0px;
 }
 
-.right-btn {
+.btns_right {
     position: absolute;
     top: 0px;
     right: 0px;
