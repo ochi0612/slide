@@ -65,7 +65,7 @@ $(function(){
 
     var first_img = "#cp_slidewrapper img:first";
     var last_img = "#cp_slidewrapper img:last";
-    var silide_timer;
+    var slide_timer;
     var bool = true;
     var w_width = $(this).width();
     var img_count = $("#cp_slidewrapper").children("img").length;
@@ -78,20 +78,20 @@ $(function(){
     $("button").on('click', function() {
         data_item = $(this).data("item");
         stopTimer();
-        silide(data_item);
+        slide(data_item);
     });
 
     //自動でスライド切り替え
     function startSlide(time = 2000) {
-        silide_timer = setTimeout(function() {
+        slide_timer = setTimeout(function() {
             startSlide();
-            silide("auto");
+            slide("auto");
         } , time);
     }
 
     //タイマーストップ時の処理
     function stopTimer() {
-        clearTimeout(silide_timer);
+        clearTimeout(slide_timer);
         startSlide(5000);
     }
 
@@ -111,7 +111,7 @@ $(function(){
     }
 
     //スライドの挙動
-    function silide(data_item) {
+    function slide(data_item) {
         if (bool === true) {
             bool = false;
             if (data_item === "left") {
