@@ -70,17 +70,6 @@ $(function(){
     var w_width = $(this).width();
     var img_count = $(".imgs_wrapper").children("img").length;
 
-    addCloneImg(img_count);
-    startSlide();
-
-
-
-    $(".btns > button").on('click', function() {
-        data_item = $(this).data("item");
-        stopTimer();
-        slide(data_item);
-    });
-
     //自動でスライド切り替え
     function startSlide(time = 2000) {
         slide_timer = setTimeout(function() {
@@ -131,6 +120,15 @@ $(function(){
             }
         }
     }
+
+    addCloneImg(img_count);
+    startSlide();
+
+    $(".btns > button").on('click', function() {
+        data_item = $(this).data("item");
+        stopTimer();
+        slide(data_item);
+    });
 });
 
 </script>
